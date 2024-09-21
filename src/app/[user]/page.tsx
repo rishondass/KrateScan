@@ -4,10 +4,12 @@ import {useEffect, useState} from "react";
 import { useUser } from '@/lib/globalStates';
 import {useRouter} from "next/navigation";
 import AddKrate from "@/components/AddKrate";
+
 const Page = () => {
   const router = useRouter();
   const user = useUser((state)=>state.user);
-  const [toggleAddKrate, setToggleAddKrate] = useState(false);
+  const [toggleAddKrate, setToggleAddKrate] = useState(true);
+  
   
   // useEffect(()=>{
   //   if(!user.username){

@@ -1,12 +1,23 @@
 import React from 'react'
 import { IoIosClose } from "react-icons/io";
-
+import { FaCamera } from "react-icons/fa";
+import Camera, { FACING_MODES} from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
+import {useState} from "react";
 type Props = {
   toggle: ()=>void;
 }
 
 const AddKrate = ({toggle}:Props) => {
-  return (
+  const [toggleCamera, setToggleCamera] = useState(false);
+
+  const cameraToggle = ()=>{
+    setToggleCamera(!toggleCamera);
+  }
+  return <>
+    <div className='z-20 absolute'>
+      {toggleCamera&&<Camera isFullscreen={false} idealFacingMode={FACING_MODES.ENVIRONMENT} idealResolution = {{width: 640, height: 480}}/>}
+    </div>
     <div className='z-10 absolute left-0 top-0 bg-black/60 w-full h-full'>
       <div className='flex justify-center items-center h-full'>
         <div className='bg-white rounded-md h-4/5 w-11/12 p-2'>
@@ -31,11 +42,18 @@ const AddKrate = ({toggle}:Props) => {
               <label htmlFor="location">Description:</label>
               <textarea name="" id="" className='outline-none bg-gray-200 rounded-md h-36 p-2'></textarea>
             </div>
+            <div className="bg-gray-300 rounded-md h-32 flex flex-col justify-center items-center col-span-2 cursor-pointer" onClick={cameraToggle}>
+              <FaCamera size={30} className='text-white'/>
+            </div>
           </div>
+          <div className='flex flex-col justify-end items-center pt-5 h-'>
+            <button className='bg-sec rounded-md text-white w-40 h-10'>save</button>
+          </div>
+          
         </div>
       </div>
     </div>
-  )
+  </>
 }
 
 export default AddKrate
