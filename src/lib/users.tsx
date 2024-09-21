@@ -8,9 +8,15 @@ const client = new MongoClient(process.env.MONGO_URL as string, {
 });
 
 
-export async function getUsers(){
+export async function getUser(username:string){
   const users = client.db('krate-scan').collection('users');
-  const user = await users.findOne({});
-  console.log(user);
-  return user?.username;
+  const data= await users.findOne({username: username});
+  
+  const user:userType = {
+    id: data?._id.toString() ||"",
+    username: data?.username,
+    krates: data?.krates || [],
+
+  }
+  return user;
 }
