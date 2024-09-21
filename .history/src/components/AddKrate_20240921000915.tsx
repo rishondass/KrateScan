@@ -16,7 +16,7 @@ const AddKrate = ({toggle}:Props) => {
   }
   return <>
     <div className='z-20 absolute'>
-      {toggleCamera&&<Camera isFullscreen={true} idealFacingMode={FACING_MODES.ENVIRONMENT} isMaxResolution={true}/>}
+      {toggleCamera&&<Camera isFullscreen={true} idealFacingMode={FACING_MODES.ENVIRONMENT} sizeFactor={}/>}
     </div>
     <div className='z-10 absolute left-0 top-0 bg-black/60 w-full h-full'>
       <div className='flex justify-center items-center h-full'>
