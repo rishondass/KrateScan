@@ -1,24 +1,19 @@
-import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
-const client = new MongoClient(process.env.MONGO_URL as string, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-const users = client.db('krate-scan').collection('users');
+import { ObjectId } from "mongodb";
+import {users} from "../lib/db"
 
 export async function getUser(username:string){
-  
-  const data= await users.findOne({username: username});
-  
-  const user:userType = {
-    id: data?._id.toString() ||"",
-    username: data?.username,
-    krates: data?.krates || [],
-
-  }
-  return user;
+  const data = await users.aggregate([
+    {$match: {username:username}},
+    {$lookup:{
+          from: "krates",
+          localField: "id",
+          foreignField: "userID",
+          as: "krates"
+    }},
+    {$limit: 1}
+  ]).next();
+  console.log(data);
+  return data;
 }
 
 export async function saveUser(user: userType){

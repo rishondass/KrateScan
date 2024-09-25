@@ -1,4 +1,4 @@
-type item = {
+type itemType = {
   id: string,
   name: string,
   location: string,
@@ -6,8 +6,9 @@ type item = {
   image: string,
 }
 
-type krate = item & {
+type krateType = itemType & {
   items: item[],
+  userID: string,
 }
 
 
