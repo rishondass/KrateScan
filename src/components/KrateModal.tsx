@@ -9,14 +9,19 @@ import { useUser } from '@/lib/globalStates';
 import { v4 as uuid } from 'uuid';
 type Props = {
   toggle: ()=>void;
+  id?:string;
+  description?:string;
+  image?:string;
+  location?:string;
+  name?:string;
 }
 
-const AddKrate = ({toggle}:Props) => {
+const AddKrate = ({toggle, id, description, image,location,name}:Props) => {
   const user = useUser(state=>state.user);
   const setUser = useUser(state=>state.setUser);
   const [dataUri, setDataUri] = useState("")
   const [toggleCamera, setToggleCamera] = useState(false);
-  const [krateInfo, setKrateInfo] = useState<krateType>({name:"",description:"",location:"",image:"",id: uuid(), items: [], userID: user.id});
+  const [krateInfo, setKrateInfo] = useState<krateType>({name:name||"",description:description||"",location:location||"",image:image||"",id: id||uuid(), items: [], userID: user.id});
 
   const cameraToggle = ()=>{
     setToggleCamera(!toggleCamera);
@@ -43,6 +48,20 @@ const AddKrate = ({toggle}:Props) => {
       toggle();
     }
   }
+
+  async function editSaveKrate(){
+    const save = await fetch('/api/v1/krate/'+id,{
+      method: "POST",
+      body: JSON.stringify(krateInfo),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    if(save.status === 200){
+      toggle();
+    }
+  }
+
   return <>
     <div className='z-20 absolute left-0 top-0'>
       {toggleCamera&&<Camera isFullscreen={true} idealFacingMode={FACING_MODES.ENVIRONMENT} isMaxResolution={true} onTakePhotoAnimationDone={handleTakePhotoAnimationDone}/>}
@@ -61,15 +80,15 @@ const AddKrate = ({toggle}:Props) => {
           <div className='grid grid-cols-2 gap-2'>
             <div className='flex flex-col'>
               <label htmlFor="name">Name:</label>
-              <input type="text" className='outline-none bg-gray-200 rounded-md h-10 p-2' onChange={(e)=>{setKrateInfo({...krateInfo,name:e.target.value})}}/>
+              <input type="text" className='outline-none bg-gray-200 rounded-md h-10 p-2' defaultValue={krateInfo.name} onChange={(e)=>{setKrateInfo({...krateInfo,name:e.target.value})}}/>
             </div>
             <div className='flex flex-col'>
               <label htmlFor="location">Location:</label>
-              <input type="text" className='outline-none bg-gray-200 rounded-md h-10 p-2' onChange={(e)=>{setKrateInfo({...krateInfo,location:e.target.value})}}/>
+              <input type="text" className='outline-none bg-gray-200 rounded-md h-10 p-2' defaultValue={krateInfo.location} onChange={(e)=>{setKrateInfo({...krateInfo,location:e.target.value})}}/>
             </div>
             <div className='flex flex-col col-span-2'>
               <label htmlFor="location">Description:</label>
-              <textarea name="" id="" className='outline-none bg-gray-200 rounded-md h-36 p-2' onChange={(e)=>{setKrateInfo({...krateInfo,description:e.target.value})}}></textarea>
+              <textarea name="" id="" className='outline-none bg-gray-200 rounded-md h-36 p-2' defaultValue={krateInfo.description} onChange={(e)=>{setKrateInfo({...krateInfo,description:e.target.value})}}></textarea>
             </div>
             {dataUri?
               <div className='relative h-32 col-span-2 rounded-md cursor-pointer' onClick={cameraToggle}>
@@ -83,7 +102,7 @@ const AddKrate = ({toggle}:Props) => {
             
           </div>
           <div className='flex flex-col justify-end items-center pt-5 h-'>
-            <button className='bg-sec rounded-md text-white w-40 h-10' onClick={saveKrate}>save</button>
+            {id?<button className='bg-sec rounded-md text-white w-40 h-10' onClick={editSaveKrate}>save</button>:<button className='bg-sec rounded-md text-white w-40 h-10' onClick={saveKrate}>save</button>}
           </div>
           
         </div>

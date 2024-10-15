@@ -3,7 +3,6 @@ import { useState } from 'react';
 import {useRouter} from 'next/navigation'
 import {useUser} from "@/lib/globalStates"
 import { IoChevronBack } from "react-icons/io5";
-import { FaTrash } from "react-icons/fa";
 import QRCode from "react-qr-code";
 import { IoIosAddCircle } from 'react-icons/io';
 import ItemModal from "@/components/ItemModal"
@@ -25,7 +24,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     <div className='p-2'>
       <div className='flex justify-between'>
         <IoChevronBack size={32} onClick={()=>{router.back();}}/>
-        <FaTrash size={32} className='text-rose-500' onClick={()=>{}}/>
+        
       </div>
       <div className='flex pt-4'>
         <div className='flex flex-col grow overflow-clip'>

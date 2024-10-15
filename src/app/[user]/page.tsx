@@ -1,26 +1,16 @@
 "use client";
 import { IoIosAddCircle } from "react-icons/io";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { useUser } from '@/lib/globalStates';
-import {useRouter} from "next/navigation";
-import AddKrate from "@/components/AddKrate";
-import { useSwipeable } from "react-swipeable";
-import clsx from "clsx";
+import KrateCard from "@/components/KrateCard";
+import AddKrate from "@/components/KrateModal";
+import EditKrate from "@/components/KrateModal";
+
 const Page = () => {
-  const router = useRouter();
   const user = useUser((state)=>state.user);
   const [toggleAddKrate, setToggleAddKrate] = useState(false);
-  const [toggleTransition, setToggleTransition] = useState(false);
-  const handlers = useSwipeable({
-    onSwipedLeft : (eventData) => {
-      console.log("User Swiped!", eventData);
-      setToggleTransition(true);
-    },
-    onSwipedRight: (eventData) => {
-      console.log("User Swiped!", eventData);
-      setToggleTransition(false);
-    }
-  });
+  const [toggleEditKrate, setToggleEditKrate] = useState<Partial<krateType> | null>(null);
+  
   
   // useEffect(()=>{
   //   if(!user.username){
@@ -32,8 +22,13 @@ const Page = () => {
     setToggleAddKrate(!toggleAddKrate);
   }
 
+  const handleEdit = (id: string, name: string, location: string, description: string, image: string)=>{
+    
+  } 
+
   return (
     <div className='p-2 flex flex-col h-screen gap-3'>
+      {toggleEditKrate && <EditKrate id={toggleEditKrate.id} description={toggleEditKrate.description} image={toggleEditKrate.image} name={toggleEditKrate.name} location={toggleEditKrate.location} toggle={()=>{setToggleEditKrate(null)}}/>}
       {toggleAddKrate&&<AddKrate toggle={toggleKrateModal}/>}
       <div className='text-sec text-5xl font-bold'>Krates</div>
       <div className="flex items-center justify-center gap-3 pt-3">
@@ -44,17 +39,7 @@ const Page = () => {
       </div>
       <div className="grow flex flex-col gap-3 overflow-y-auto">
         {user.krates.map((krate)=>{
-          return <div {...handlers} key={krate.id} className={clsx("min-h-32 bg-gray-300 rounded-md p-1 w-full flex gap-2 transition relative overflow-hidden")} onClick={()=>{router.push('/krates/'+krate.id)}}>
-          <div className={clsx("absolute right-0 top-0 bg-prim h-full rounded-r-md w-1/2 transition ease-in-out translate-x-full",toggleTransition?"-translate-x-[0%]":"")}>h</div>
-          <div className="bg-gray-600 min-w-[50%] h-full">Images</div>
-          <div className="h-full flex flex-col box-border overflow-hidden">
-            <div className="font-bold text-xl">{krate.name}</div>
-            <div className="font-light text-sm">{krate.location}</div>
-            <div className="grow text-sm box-border">
-            {krate.description}
-            </div>
-          </div>
-        </div>
+          return <KrateCard key={krate.id} {...krate} handleEdit={handleEdit}/>
         })}
         
         
