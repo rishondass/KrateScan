@@ -1,28 +1,39 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useItems} from "@/lib/globalStates";
 import { IoChevronBack } from "react-icons/io5";
 import QRCode from "react-qr-code";
 import { IoIosAddCircle } from "react-icons/io";
 import ItemModal from "@/components/ItemModal";
 import ItemCard from "@/components/ItemCard";
+import { useItems } from "@/lib/globalStates";
 type Props = {
   id?: string | undefined;
   name?: string;
   description?: string;
   location?: string;
   image?: string;
+  items?: itemType[];
 };
 
 
 
-const Page = ({ id, name, description, location}: Props) => {
+const Page = ({ id, name, description, location, items}: Props) => {
   const [toggleModal, setToggleModal] = useState(false);
   const [toggleEditModal, setToggleEditModal] = useState<Partial<itemType> | null>(null);
   const router = useRouter();
-  const items = useItems(state=>state.items);
   const setItems = useItems(state=>state.setItems);
+  const krateItems = useItems(state=>state.items);
+
+  useEffect(()=>{
+    if(items && krateItems.length <= 0){
+      setItems(items);
+    }
+  },[items]);
+
+  useEffect(()=>{
+    console.log("ITEMS",krateItems);
+  },[krateItems]);
   
   const handleEdit = (id: string, name: string, quantity: number, description: string, image: string)=>{
     if(id){
@@ -36,22 +47,22 @@ const Page = ({ id, name, description, location}: Props) => {
     
   } 
 
-  useEffect(()=>{
+  // useEffect(()=>{
     
 
-    async function getItems(){
-      if(id){
-        const res = await fetch("/api/v1/krate/items/" + id);
-        const data = await res.json();
-        setItems(data as itemType[]);
-      }
+  //   async function getItems(){
+  //     if(id){
+  //       const res = await fetch("/api/v1/krate/items/" + id);
+  //       const data = await res.json();
+  //       setItems(data as itemType[]);
+  //     }
       
       
-    }
+  //   }
 
-    getItems();
+  //   getItems();
 
-  },[id])
+  // },[id])
 
   const toggleModalFn = () => {
     setToggleModal(!toggleModal);
@@ -92,7 +103,7 @@ const Page = ({ id, name, description, location}: Props) => {
           />
         </div>
         <div>
-          {items?.map(item=>{
+          {krateItems?.map(item=>{
             return <ItemCard key={item.id} {...item} handleEdit={handleEdit}/>
           })}
         </div>

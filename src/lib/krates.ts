@@ -15,24 +15,58 @@ export async function getUserKrates(id:string|undefined){
 }
 
 export async function getKrate(id:string,userID:string){
-  const data = await krates.findOne({id: id},{
-    projection:{
-      name: 1,
-      location: 1,
-      description: 1,
-      image: 1,
-      id: 1,
-      userID: 1,
-      _id: 0
+  // const data = await krates.findOne({id: id},{
+  //   projection:{
+  //     name: 1,
+  //     location: 1,
+  //     description: 1,
+  //     image: 1,
+  //     id: 1,
+  //     userID: 1,
+  //     _id: 0
+  //   }
+  // });
+  const data = await krates.aggregate([
+    {$match: {id:id}},
+    {$lookup:{
+      from: "items",
+      localField: "id",
+      foreignField: "krateID",
+      as: "items",
+      pipeline:[
+        {$project:{
+          id: 1,
+          name: 1,
+          description: 1,
+          image: 1,
+          krateID: 1,
+          quantity: 1,
+          _id: 0,
+        }}
+      ]
+    }},
+    {
+      $project:{
+        id: 1,
+        name: 1,
+        location: 1,
+        description: 1,
+        image: 1,
+        userID: 1,
+        items: 1,
+        _id: 0,
+      }
     }
-  });
-  const res : krateType = {
+  ]).next();
+  
+  const res : krateType & {items: itemType[]} = {
     id: data?.id,
     name: data?.name,
     location: data?.location,
     description: data?.description,
     image: data?.image,
     userID: data?.userID,
+    items: data?.items
   };
   if(res.userID === userID){
     return res;
@@ -67,5 +101,18 @@ export async function deleteKrate (id:string){
     return false;
   }
 }
+
+// {
+//   $map:{
+//     input: "$items",
+//     as: "item",
+//     in: {
+//       id: "$$item.id",
+//       name: "$$item.name",
+//       description: "$$item.description",
+//       image: "$$item.image"
+//     }
+//   }
+// }
 
 
