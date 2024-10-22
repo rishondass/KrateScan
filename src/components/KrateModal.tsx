@@ -38,7 +38,7 @@ const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Prop
     cameraToggle();
   }
 
-  async function saveKrate(){
+  async function addKrate(){
     
     const save = await fetch('/api/v1/krate',{
       method: "POST",
@@ -51,7 +51,6 @@ const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Prop
       const temp = [...krates];
       temp.push(krateInfo);
       setKrates(temp);
-      console.log(temp);
       toggle?.();
     }
   }
@@ -113,7 +112,7 @@ const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Prop
             
           </div>
           <div className='flex flex-col justify-end items-center pt-5 h-'>
-            {id?<button className='bg-sec rounded-md text-white w-40 h-10' onClick={editSaveKrate}>save</button>:<button className='bg-sec rounded-md text-white w-40 h-10' onClick={saveKrate}>save</button>}
+            {id?<button className='bg-sec rounded-md text-white w-40 h-10' onClick={editSaveKrate}>save</button>:<button className='bg-sec rounded-md text-white w-40 h-10' onClick={addKrate}>add</button>}
           </div>
           
         </div>

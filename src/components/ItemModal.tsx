@@ -55,7 +55,6 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
   }
 
   async function saveItem(){
-    //TODO: save item api
     const save = await fetch("/api/v1/item/"+id,{
       method: "PUT",
       body: JSON.stringify(itemInfo),
@@ -64,6 +63,10 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
       }
     });
     if(save.status === 200){
+      const index = items.findIndex(item=>item.id === id);
+      const temp = [...items];
+      temp[index] = itemInfo;
+      setItems(temp);
       handleEdit?.("","",-1,"","");
     }
   }

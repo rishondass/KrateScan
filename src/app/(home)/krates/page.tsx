@@ -13,7 +13,7 @@ const page = async() => {
     userID: krate.userID,
     image: krate.image,
   }));
-  console.log(krates);
+  //const krates:krateType[]=[...data];
   return (
     <KratesPage kratesData={krates}/>
   )

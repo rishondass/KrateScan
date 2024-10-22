@@ -1,4 +1,5 @@
-import NextAuth from "next-auth";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { type DefaultSession } from 'next-auth';
 import { authUser, getUser} from "./lib/users";
@@ -27,11 +28,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         const user = await authUser(credentials.username as string, credentials.password as string);
-        const id:string = user?.id || "" ;
+        
         if(user){
-          const data = {id:id,name: credentials.username as string};
+          const data:User = {name: credentials.username as string, id: user.id}
           return data;
-          
         }else{
           return null;
         }
@@ -44,8 +44,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   callbacks:{
-    async session({session}){
+    
+    async session({ session, token, user }){
+      
       // Add logic to customize the session
+      //console.log(token,user);
       const userData = await getUser(session.user.name || "");
 
       return {

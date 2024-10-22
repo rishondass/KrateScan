@@ -1,4 +1,4 @@
-import {krates} from "./db";
+import {items, krates} from "./db";
 
 
 export async function getUserKrates(id:string|undefined){
@@ -57,7 +57,15 @@ export async function updateKrate (krate: krateType){
 }
 
 export async function deleteKrate (id:string){
-  return await krates.deleteOne({id:id});
+  
+  const krate = await krates.deleteOne({id:id});
+  const itemAck = await items.deleteMany({krateID: id});
+
+  if(krate.acknowledged && itemAck.acknowledged){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 

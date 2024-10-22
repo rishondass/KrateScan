@@ -11,6 +11,8 @@ type Props = itemType & {
 }
 
 
+//TODO:items update on display when edited
+
 
 
 const ItemCard = ({id, name, quantity, description,image,handleEdit}:Props) => {
@@ -51,8 +53,8 @@ const ItemCard = ({id, name, quantity, description,image,handleEdit}:Props) => {
 
   return (
     <div {...handlers} key={id} className={clsx("min-h-32 bg-gray-300 rounded-md p-1 w-full flex gap-2 transition relative overflow-hidden")} onClick={()=>{router.push('/krates/'+id)}}>
-          <div className={clsx("absolute right-0 top-0 bg-prim h-full rounded-md w-1/2 transition ease-in-out translate-x-full flex",toggleTransition?"-translate-x-0":"")}>
-            <div className='bg-blue-600 h-full flex justify-center items-center grow rounded-l-md' onClick={(e)=>{e.stopPropagation();handleEdit(id,name,quantity,description,image);}}>
+          <div className={clsx("absolute right-0 top-0 bg-prim h-full rounded-md w-1/2 transition ease-in-out flex",toggleTransition?"translate-x-0":"translate-x-full")}>
+            <div className='bg-blue-600 h-full flex justify-center items-center grow rounded-l-md' onClick={(e)=>{e.stopPropagation();handleEdit(id,name,quantity,description,image);setToggleTransition(false)}}>
               <MdEdit size={40} className='text-white'/>
             </div>
             <div className='bg-rose-600 h-full flex justify-center items-center grow'>

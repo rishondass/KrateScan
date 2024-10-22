@@ -17,8 +17,13 @@ const KratesPage = ({kratesData}:Props) => {
   const [toggleEditKrate, setToggleEditKrate] = useState<Partial<krateType> | null>(null);
   
   useEffect(()=>{
-    setKrates(kratesData);
-  },[])
+    if(kratesData && krates.length <= 0)
+      setKrates(kratesData);
+  },[kratesData])
+
+  useEffect(()=>{
+    console.log(krates);
+  },[krates])
   
 
   const toggleKrateModal = ()=>{

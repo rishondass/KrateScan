@@ -14,7 +14,7 @@ export async function DELETE(req:Request){
   const {id} = await req.json();
   const res = await deleteKrate(id);
 
-  if(res.acknowledged){
+  if(res){
     return NextResponse.json({},{status:200});
   }
   return NextResponse.json({},{status:505});
