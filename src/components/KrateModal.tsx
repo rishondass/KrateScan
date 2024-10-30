@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosClose } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {v4 as uuid} from "uuid";
 import Image from "next/image";
 import {useKrates } from '@/lib/globalStates';
@@ -26,12 +26,6 @@ const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Prop
   const [imageUri, setImageUri] = useState<string | ImageData | undefined>();
   const [toggleCamera, setToggleCamera] = useState(false);;
   const [krateInfo, setKrateInfo] = useState<krateType>({name:name||"",description:description||"",location:location||"",image:image||(uuid()+".png"),id: id||uuid(), userID: user?.id || "-1"});
-
-
-  // useEffect(()=>{
-  //   console.log(imageUri);
-  // },[imageUri])
-
 
 
   const cameraToggle = ()=>{

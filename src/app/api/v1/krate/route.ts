@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import {createKrate} from "../../../../lib/krates";
 import {writeFile, existsSync, mkdirSync} from "fs";
-import {v4 as uuid} from "uuid";
 import path from 'path';
 export async function POST(req: Request){
   const data = await req.json();
