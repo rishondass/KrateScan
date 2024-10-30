@@ -1,8 +1,6 @@
 import React from 'react'
 import { IoIosClose } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
-import Camera, { FACING_MODES} from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
 import {useState} from "react";
 import Image from "next/image";
 
@@ -75,7 +73,7 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
 
   return <>
     <div className='z-20 absolute left-0 top-0'>
-      {toggleCamera&&<Camera isFullscreen={true} idealFacingMode={FACING_MODES.ENVIRONMENT} isMaxResolution={true} onTakePhotoAnimationDone={handleTakePhotoAnimationDone}/>}
+      {/* {toggleCamera&&<Camera isFullscreen={true} idealFacingMode={FACING_MODES.ENVIRONMENT} isMaxResolution={true} onTakePhotoAnimationDone={handleTakePhotoAnimationDone}/>} */}
     </div>
     <div className='z-10 absolute left-0 top-0 bg-black/60 w-full h-full'>
       <div className='flex justify-center items-center h-full'>

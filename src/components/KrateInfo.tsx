@@ -47,23 +47,6 @@ const Page = ({ id, name, description, location, items}: Props) => {
     
   } 
 
-  // useEffect(()=>{
-    
-
-  //   async function getItems(){
-  //     if(id){
-  //       const res = await fetch("/api/v1/krate/items/" + id);
-  //       const data = await res.json();
-  //       setItems(data as itemType[]);
-  //     }
-      
-      
-  //   }
-
-  //   getItems();
-
-  // },[id])
-
   const toggleModalFn = () => {
     setToggleModal(!toggleModal);
   };

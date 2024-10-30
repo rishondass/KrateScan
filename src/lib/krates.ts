@@ -91,10 +91,8 @@ export async function updateKrate (krate: krateType){
 }
 
 export async function deleteKrate (id:string){
-  
   const krate = await krates.deleteOne({id:id});
   const itemAck = await items.deleteMany({krateID: id});
-
   if(krate.acknowledged && itemAck.acknowledged){
     return true;
   }else{

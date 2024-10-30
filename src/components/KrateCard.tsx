@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from 'react-icons/fa';
 import { useKrates } from '@/lib/globalStates';
+import Image from "next/image";
 
 type Props = krateType & {
   handleEdit: (id: string, name: string, location: string, description: string, image:string)=>void;
 }
 
 
-
+//TODO: Add Authorization checks for all api?
 
 const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => {
   const router = useRouter();
@@ -34,12 +35,8 @@ const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => 
 
   const deleteKrate = async(e:React.MouseEvent<SVGElement, MouseEvent>)=>{
     e.stopPropagation();
-    const res = await fetch('/api/v1/krate',{
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({id:id}),
+    const res = await fetch('/api/v1/krate/'+id,{
+      method: "DELETE"
     });
     if(res.status === 200){
       const temp = krates.filter(krate=> krate.id !== id);
@@ -61,7 +58,9 @@ const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => 
               <FaTrash size={32} className='text-white' onClick={deleteKrate}/>
             </div>
           </div>
-          <div className="bg-gray-600 min-w-[50%] h-full">Images</div>
+          <div className="bg-gray-600 min-w-[50%] h-full relative">
+            {image&&<Image src={"/api/v1/krate/images/"+ id +"/" + image} alt={"krate-image"} fill={true} className='object-cover'/>}
+          </div>
           <div className="h-full flex flex-col box-border overflow-hidden">
             <div className="font-bold text-xl">{name}</div>
             <div className="font-light text-sm">{location}</div>

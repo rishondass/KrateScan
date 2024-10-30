@@ -53,7 +53,7 @@ const KratesPage = ({kratesData}:Props) => {
       </div>
       <div className="grow flex flex-col gap-3 overflow-y-auto">
         {krates.map((krate)=>{
-          return <KrateCard key={krate.id} {...krate} handleEdit={handleEdit}/>
+          return <KrateCard {...krate} key={krate.id}  handleEdit={handleEdit}/>
         })}
         
         
