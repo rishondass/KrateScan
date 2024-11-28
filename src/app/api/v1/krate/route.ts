@@ -5,11 +5,11 @@ import path from 'path';
 export async function POST(req: Request){
   const data = await req.json();
 
-  // const filePath = path.join(__dirname,`/image/${uuid()}.png`);
+  
   const uploadDir =  path.join(process.cwd(),"src", 'public', 'uploads', data.userID, data.id);
   
   if (!existsSync(uploadDir)) {
-    mkdirSync(uploadDir, { recursive: true }); // Create directory if it doesn't exist
+    mkdirSync(uploadDir, { recursive: true });
   }
   const imagePath = data.image;
   const filePath = path.join(uploadDir,imagePath);

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from 'react-icons/fa';
 import { useItems } from '@/lib/globalStates';
-
+import Image from "next/image";
 type Props = itemType & {
   handleEdit: (id: string, name: string, quantity: number, description: string, image:string)=>void;
 }
@@ -15,7 +15,7 @@ type Props = itemType & {
 
 
 
-const ItemCard = ({id, name, quantity, description,image,handleEdit}:Props) => {
+const ItemCard = ({id,krateID, name, quantity, description,image,handleEdit}:Props) => {
   const router = useRouter();
   const items = useItems(state=>state.items);
   const setItems = useItems(state=>state.setItems);
@@ -38,7 +38,7 @@ const ItemCard = ({id, name, quantity, description,image,handleEdit}:Props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({id:id}),
+      body: JSON.stringify({id:id, krateID: krateID, image: image}),
     });
     console.log(res.status)
     if(res.status === 200){
@@ -61,7 +61,9 @@ const ItemCard = ({id, name, quantity, description,image,handleEdit}:Props) => {
               <FaTrash size={32} className='text-white' onClick={deleteItem}/>
             </div>
           </div>
-          <div className="bg-gray-600 min-w-[50%]">Images</div>
+          <div className="bg-gray-600 min-w-[50%] relative">
+            {image&&<Image src={"/api/v1/krate/images/"+ krateID +"/" + image} alt={"krate-image"} fill={true} className='object-cover'/>}
+          </div>
           <div className="h-full flex flex-col box-border overflow-hidden">
             <div className="font-bold text-xl">{name}</div>
             <div className="font-light text-sm">{quantity}</div>
