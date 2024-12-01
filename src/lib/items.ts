@@ -1,4 +1,4 @@
-import { items } from "./db"
+import { items} from "./db"
 
 export async function getItems(krateID:string){
   return items.find({krateID: krateID}).toArray();
@@ -25,6 +25,14 @@ export async function updateItem(item:itemType){
 
 export async function deleteItem(id:string){
   return await items.deleteOne({id:id});
+}
+
+export async function searchItem(input:string){
+  const result = await items.find({
+    $text: { $search: input }
+  }).toArray();
+  console.log(result);
+  return result;
 }
 
 
