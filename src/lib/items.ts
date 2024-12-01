@@ -27,11 +27,22 @@ export async function deleteItem(id:string){
   return await items.deleteOne({id:id});
 }
 
-export async function searchItem(input:string){
-  const result = await items.find({
-    $text: { $search: input }
-  }).toArray();
-  console.log(result);
+export async function searchItem(userID:string, input:string){
+  const result = await items.aggregate([
+    { 
+      $match: { 
+        $and: [
+          { userID: userID },
+          {
+            $or: [
+              { name: { $regex: input, $options: "i" } },
+              { description: { $regex: input, $options: "i" } } 
+            ]
+          }
+        ]
+      } 
+    }
+  ]).toArray();
   return result;
 }
 

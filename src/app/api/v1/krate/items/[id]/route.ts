@@ -46,8 +46,9 @@ export async function POST(req: Request){
     name: data.name,
     quantity: data.quantity,
     description: data.description,
-    image:  imagePath,
+    image:  data.imageUri?imagePath:"",
     krateID: data.krateID,
+    userID: session?.user.id,
   }
 
   const add = await addItem(payload as itemType);

@@ -3,10 +3,8 @@ import {useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { IoChevronBack } from "react-icons/io5";
 import QRCode from "react-qr-code";
-import { IoIosAddCircle } from "react-icons/io";
-import ItemModal from "@/components/ItemModal";
-import ItemCard from "@/components/ItemCard";
 import { useItems } from "@/lib/globalStates";
+import ItemsSection from "./ItemsSection";
 type Props = {
   id?: string | undefined;
   name?: string;
@@ -20,7 +18,7 @@ type Props = {
 
 const Page = ({ id, name, description, location, items}: Props) => {
   const [toggleModal, setToggleModal] = useState(false);
-  const [toggleEditModal, setToggleEditModal] = useState<Partial<itemType> | null>(null);
+  
   const router = useRouter();
   const setItems = useItems(state=>state.setItems);
   const krateItems = useItems(state=>state.items);
@@ -34,29 +32,12 @@ const Page = ({ id, name, description, location, items}: Props) => {
   useEffect(()=>{
     console.log("ITEMS",krateItems);
   },[krateItems]);
-  
-  const handleEdit = (id: string, name: string, quantity: number, description: string, image: string)=>{
-    if(id){
-      console.log("HANDLING EDIT",name);
-      setToggleEditModal({id, name, quantity, description, image});
-    }else{
-      setToggleEditModal(null);
-    }
-    
-    
-    
-  } 
-
-  const toggleModalFn = () => {
-    setToggleModal(!toggleModal);
-  };
 
   return (
     <>
-      {id&&toggleEditModal && <ItemModal krateID={id} handleEdit={handleEdit} {...toggleEditModal}/>}
-      {id&&toggleModal && <ItemModal krateID={id} toggle={toggleModalFn} />}
+      
 
-      <div className="p-2">
+      <div className="p-2 h-screen flex flex-col">
         <div className="flex justify-between">
           <IoChevronBack
             size={32}
@@ -78,18 +59,7 @@ const Page = ({ id, name, description, location, items}: Props) => {
             </button>
           </div>
         </div>
-        <div>
-          <IoIosAddCircle
-            size={40}
-            className="text-sec cursor-pointer"
-            onClick={toggleModalFn}
-          />
-        </div>
-        <div>
-          {krateItems?.map(item=>{
-            return <ItemCard key={item.id} {...item} handleEdit={handleEdit}/>
-          })}
-        </div>
+        <ItemsSection items={krateItems??[]} krateID={id as string} add={true}/>
       </div>
     </>
   );

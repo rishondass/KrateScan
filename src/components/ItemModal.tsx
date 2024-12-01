@@ -13,7 +13,7 @@ type Props = {
   quantity?: number;
   image?: string;
   krateID:string,
-  handleEdit?: (id: string, name: string, quantity:number, description: string, image: string)=>void;
+  handleEdit?: (id: string, name: string, quantity:number, description: string, image: string, krateID: string)=>void;
   toggle?: ()=>void;
 }
 
@@ -70,7 +70,7 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
         temp[index] = itemInfo;
       }
       setItems(temp);
-      handleEdit?.("","",-1,"","");
+      handleEdit?.("","",-1,"","","");
     }
   }
   
@@ -88,7 +88,7 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
       <div className='flex justify-center items-center h-full'>
         <div className='bg-white rounded-md h-4/5 w-11/12 p-2'>
           <div className='flex justify-end'>
-            {handleEdit?<IoIosClose size={42} onClick={()=>{handleEdit("","",-1,"","")}}/>:<IoIosClose size={42} onClick={toggle}/>}
+            {handleEdit?<IoIosClose size={42} onClick={()=>{handleEdit("","",-1,"","","")}}/>:<IoIosClose size={42} onClick={toggle}/>}
           </div>
           
           <div className='text-3xl font-bold text-center text-sec'>
