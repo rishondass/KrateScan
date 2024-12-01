@@ -17,8 +17,6 @@ type Props = {
 
 
 const Page = ({ id, name, description, location, items}: Props) => {
-  const [toggleModal, setToggleModal] = useState(false);
-  
   const router = useRouter();
   const setItems = useItems(state=>state.setItems);
   const krateItems = useItems(state=>state.items);
