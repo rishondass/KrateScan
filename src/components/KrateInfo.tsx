@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useState } from "react";
+import {useEffect} from "react";
 import { useRouter } from "next/navigation";
 import { IoChevronBack } from "react-icons/io5";
 import QRCode from "react-qr-code";

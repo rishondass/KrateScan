@@ -9,7 +9,7 @@ export default function Page() {
 
   const credentialsAction = (formData: FormData) => {
     signIn("credentials",{
-      redirectTo: "/",
+      redirectTo: "/krates",
       username: formData.get('username'),
       password: formData.get('password'),
     })

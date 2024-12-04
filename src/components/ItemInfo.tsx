@@ -6,7 +6,7 @@ type Props = {
 
 } & Partial<itemType>
 
-const ItemInfo = ({name, description, quantity, image}: Props) => {
+const ItemInfo = ({name, description, quantity}: Props) => {
   const router = useRouter();
   return (
     <div className="p-2">

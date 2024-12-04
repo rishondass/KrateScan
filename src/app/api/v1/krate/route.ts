@@ -40,7 +40,7 @@ export async function POST(req: Request){
     name: data.name,
     location: data.location,
     description: data.description,
-    image:  imagePath,
+    image:  data.imageUri?imagePath:"",
     userID: data.userID,
   }
   if(await createKrate(payload)){
