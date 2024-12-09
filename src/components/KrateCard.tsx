@@ -24,12 +24,12 @@ const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => 
   
 
   const handlers = useSwipeable({
-    onSwipedLeft : (eventData) => {
-      console.log("User Swiped!", eventData);
+    onSwipedLeft : () => {
+      //console.log("User Swiped!", eventData);
       setToggleTransition(true);
     },
-    onSwipedRight: (eventData) => {
-      console.log("User Swiped!", eventData);
+    onSwipedRight: () => {
+      //console.log("User Swiped!", eventData);
       setToggleTransition(false);
     }
   });

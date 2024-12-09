@@ -27,6 +27,10 @@ const KratesPage = ({kratesData}:Props) => {
       setKrates(kratesData);
   },[kratesData])
 
+  useEffect(()=>{
+    console.log(toggleEditKrate);
+  },[toggleEditKrate])
+
   
 
   const onSearchQueryChange = async(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -60,7 +64,7 @@ const KratesPage = ({kratesData}:Props) => {
   return (
     <div className='p-2 flex flex-col h-screen gap-3'>
       {toggleScanner && <QRScanner toggleScanner={()=>{setToggleScanner(!toggleScanner)}}/>}
-      {toggleEditKrate && <EditKrate id={toggleEditKrate.id} description={toggleEditKrate.description} image={toggleEditKrate.image} name={toggleEditKrate.name} location={toggleEditKrate.location} handleEdit={handleEdit}/>}
+      {toggleEditKrate && <EditKrate id={toggleEditKrate.id} description={toggleEditKrate.description} name={toggleEditKrate.name} location={toggleEditKrate.location} handleEdit={handleEdit} image={toggleEditKrate.image}/>}
       {toggleAddKrate&&<AddKrate toggle={toggleKrateModal}/>}
       <div className="absolute bottom-10 left-0 w-full flex items-center justify-center"> 
         <button className="bg-sec z-10 rounded-lg text-white p-4 text-xl font-semibold w-1/3 shadow-lg" onClick={scanHandle}>scan</button>
@@ -68,14 +72,14 @@ const KratesPage = ({kratesData}:Props) => {
       
       <div className="flex items-center justify-between">
         <div className='text-sec text-5xl font-bold'>Krates</div>
-        <RiLogoutBoxLine size={40} className="text-rose-600" onClick={()=>{signOut();}}/>
+        <RiLogoutBoxLine size={36} className="text-rose-600" onClick={()=>{signOut();}}/>
       </div>
       
       <div className="flex items-center justify-center gap-3 pt-3">
         <div className='grow h-full text-black'>
-          <input type="text" placeholder='search' className='bg-[#F1F1F1] px-2 py-1 rounded-md w-full h-10 outline-none' onChange={onSearchQueryChange}/>
+          <input type="text" placeholder='search' className='bg-[#F1F1F1] px-2 py-1 rounded-md w-full h-full outline-none' onChange={onSearchQueryChange}/>
         </div>
-        <IoIosAddCircle size={40} className="text-sec cursor-pointer" onClick={toggleKrateModal}/>
+        <IoIosAddCircle size={48} className="text-sec cursor-pointer" onClick={toggleKrateModal}/>
       </div>
       <div className="grow flex flex-col gap-3 overflow-y-auto">
         {searchQuery?

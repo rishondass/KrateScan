@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { updateItem,deleteItem } from "@/lib/items";
 import { auth } from "@/auth";
 import path from "path";
-import { rmSync} from "fs";
+import { existsSync, rmSync} from "fs";
 import { unlink, writeFile } from "fs/promises";
 export async function PUT(req:Request){
   const data = await req.json();
@@ -15,30 +15,30 @@ export async function PUT(req:Request){
     }
 
     const oldPath = path.join(process.cwd(),"src", 'public', 'uploads', session?.user.id || "",  data.krateID, data.image)
-    const deletePic = await unlink(oldPath);
-    if(deletePic === undefined){
-      const newPath = path.join(process.cwd(),"src", 'public', 'uploads', session?.user.id || "", data.krateID, data.newImage);
+    if(existsSync(oldPath)){
+      await unlink(oldPath);
+    }
+  
+    const newPath = path.join(process.cwd(),"src", 'public', 'uploads', session?.user.id || "", data.krateID, data.newImage);
 
-      const base64Data = matches[2];
+    const base64Data = matches[2];
 
-      await writeFile(newPath,  base64Data, 'base64');
+    await writeFile(newPath,  base64Data, 'base64');
 
-      const payload = {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-        quantity: data.quantity,
-        krateID: data.krateID,
-        image: data.newImage,
-      }
-      const update = await updateItem(payload as itemType);
+    const payload = {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      quantity: data.quantity,
+      krateID: data.krateID,
+      image: data.newImage,
+    }
+    const update = await updateItem(payload as itemType);
 
-      if(update.acknowledged){
-        return NextResponse.json({},{status:200});
-      }else{
-        return NextResponse.json({},{status:505});
-      }
-
+    if(update.acknowledged){
+      return NextResponse.json({},{status:200});
+    }else{
+      return NextResponse.json({},{status:505});
     }
   }
 

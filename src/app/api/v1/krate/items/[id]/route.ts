@@ -3,7 +3,8 @@ import {getItems, addItem} from "@/lib/items";
 import {writeFile, existsSync, mkdirSync} from "fs";
 import path from 'path';
 import {auth} from "@/auth"
-export async function GET(request: Request,{ params }: { params: { id: string } }){
+export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const items = await getItems(params.id);
   return NextResponse.json(items);
 }

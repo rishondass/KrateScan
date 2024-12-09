@@ -3,7 +3,11 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-export async function GET(request: Request,{ params }: { params: { krateID: string, imageID: string } }) {
+export async function GET(
+  request: Request,
+  props: { params: Promise<{ krateID: string, imageID: string }> }
+) {
+  const params = await props.params;
   const session = await auth();
   const filePath = path.join(process.cwd(),"src", 'public', 'uploads', session?.user.id || "", params.krateID , params.imageID);
   try {
@@ -22,5 +26,4 @@ export async function GET(request: Request,{ params }: { params: { krateID: stri
     console.error(err);
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
-  
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosClose } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {v4 as uuid} from "uuid";
 import Image from "next/image";
 import {useKrates } from '@/lib/globalStates';
@@ -18,15 +18,20 @@ type Props = {
   handleEdit?: (id: string, name: string, location: string, description: string, image: string)=>void;
 }
 
-const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Props) => {
+const AddKrate = ({toggle, id, description,image,location,name,handleEdit}:Props) => {
   const krates = useKrates((state)=>state.krates);
   const setKrates = useKrates(state=>state.setKrates)
   const {data:session} = useSession();
   const user = session?.user;
   const [imageUri, setImageUri] = useState<string | ImageData | undefined>();
   const [toggleCamera, setToggleCamera] = useState(false);;
-  const [krateInfo, setKrateInfo] = useState<krateType>({name:name||"",description:description||"",location:location||"",image:image||(uuid()+".png"),id: id||uuid(), userID: user?.id || "-1"});
+  const [krateInfo, setKrateInfo] = useState<krateType>({name:name||"",description:description||"",location:location||"",image:image||uuid()+".png",id: id||uuid(), userID: user?.id || "-1"});
 
+
+  useEffect(()=>{
+    console.log(image);
+    console.log(krateInfo);
+  },[krateInfo])
 
   const cameraToggle = ()=>{
     console.log('toggle camera');
@@ -91,12 +96,12 @@ const AddKrate = ({toggle, id, description, image,location,name,handleEdit}:Prop
     
       
     {toggleCamera&&
-      <div className='z-20 absolute left-0 top-0 h-screen w-screen'>
+      <div className='z-30 absolute left-0 top-0 h-dvh w-dvw'>
         <Camera toggle={cameraToggle} setImage={setImageProp}/>
       </div>
     }
     
-    <div className='z-10 absolute left-0 top-0 bg-black/60 w-full h-full' onClick={()=>{console.log('click background')}}>
+    <div className='z-20 absolute left-0 top-0 bg-black/60 w-dvw h-dvh' onClick={()=>{console.log('click background')}}>
       <div className='flex justify-center items-center h-full'>
         <div className='bg-white rounded-md h-4/5 w-11/12 p-2'>
           <div className='flex justify-end'>

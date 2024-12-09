@@ -19,9 +19,9 @@ const Camera = ({toggle, setImage}:Props) => {
     toggle();
   }
   return <div>
-    <IoChevronBackCircleSharp size={40} color={"#fff"} className='absolute top-4 left-4 z-50' onClick={toggle}/>
-    <FaCircle size={50} color={"#fff"} onClick={handleTakePhotoAnimationDone} className='absolute bottom-6 right-[calc(50% - 25px)] z-50'/>
-    <CameraPro ref={camera} facingMode={"environment"} aspectRatio={window.innerWidth/window.innerHeight} errorMessages={{
+    <IoChevronBackCircleSharp size={56} color={"#fff"} className='absolute top-4 left-4 z-50 shadow-sm' onClick={toggle}/>
+    <FaCircle size={56} color={"#fff"} onClick={handleTakePhotoAnimationDone} className='absolute bottom-6 right-[calc(50%-28px)] z-50 shadow-sm'/>
+    <CameraPro ref={camera} facingMode={"environment"} aspectRatio={window.screen.width/window.screen.height} errorMessages={{
       noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
       permissionDenied: 'Permission denied. Please refresh and give camera permission.',
       switchCamera:

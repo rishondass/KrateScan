@@ -79,12 +79,12 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
   return <>
     {
       toggleCamera&&
-      <div className='z-20 absolute left-0 top-0 h-screen w-screen'>
+      <div className='z-30 absolute left-0 top-0 h-dvh w-dvw'>
         <Camera toggle={cameraToggle} setImage={setImageProp}/>
       </div>
     }
     
-    <div className='z-10 absolute left-0 top-0 bg-black/60 w-full h-full'>
+    <div className='z-20 absolute left-0 top-0 bg-black/60 w-dvw h-dvh'>
       <div className='flex justify-center items-center h-full'>
         <div className='bg-white rounded-md h-4/5 w-11/12 p-2'>
           <div className='flex justify-end'>

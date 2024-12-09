@@ -3,6 +3,7 @@ import { useState} from "react";
 import { signIn } from "next-auth/react"
 import SignUp from "@/components/SignUp";
 
+
 export default function Page() {
   const [signUp, setSignUp] = useState(false);
 
