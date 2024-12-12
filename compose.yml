@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mongo
+    ports: "27017:27017"
+  server:
+    build: .
+    ports: "12311:3000"
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db

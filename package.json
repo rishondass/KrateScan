@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
-    "@yudiel/react-qr-scanner": "^2.0.8",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "cross-spawn": "^7.0.6",
