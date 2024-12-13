@@ -1,10 +1,12 @@
 services:
   db:
     image: mongo
-    ports: "27017:27017"
+    ports: 
+      - 27017:27017
   server:
     build: .
-    ports: "3004:3000"
+    ports: 
+      - 12311:3000
     depends_on:
       - db
     environment:
