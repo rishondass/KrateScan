@@ -4,12 +4,13 @@ services:
     ports: 
       - 27017:27017
   server:
-    build: .
+    build:
+      context: .
+      args:
+        MONGO_URL: "mongodb://db"
+        NEXTAUTH_SECRET: A_CHANGE
+        AUTH_URL: CHANGE_ME
     ports: 
       - 12311:3000
     depends_on:
       - db
-    environment:
-      - MONGO_URL=mongodb://db
-      - NEXTAUTH_SECRET=CHANGE_ME
-      - AUTH_URL=CHANGE_ME
