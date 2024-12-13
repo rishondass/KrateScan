@@ -6,6 +6,10 @@ COPY . .
 
 RUN npm install
 
+ARG MONGODB_URL
+
+ENV MONGODB_URL=$MONGODB_URL
+
 RUN npm run build
 
 EXPOSE 3000
