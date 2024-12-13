@@ -11,5 +11,5 @@ services:
       - db
     environment:
       - MONGO_URL=mongodb://db
-      - NEXTAUTH_SECRET="CHANGE_ME"
-      - AUTH_URL="CHANGE_ME"
+      - NEXTAUTH_SECRET=CHANGE_ME
+      - AUTH_URL=CHANGE_ME
