@@ -1,5 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
-const client = new MongoClient(process.env.MONGO_URL as string, {
+const client = new MongoClient(process.env.MONGO_URL as string || "mongodb://127.0.0.1:27017", {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
