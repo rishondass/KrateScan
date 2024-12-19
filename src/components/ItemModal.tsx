@@ -84,53 +84,67 @@ const ItemModal = ({krateID, id,name, description, quantity, image, toggle,handl
       </div>
     }
     
-    <div className='z-20 absolute left-0 top-0 bg-black/60 w-dvw h-dvh'>
-      <div className='flex justify-center items-center h-full'>
-        <div className='bg-white rounded-md h-4/5 w-11/12 p-2'>
-          <div className='flex justify-end'>
-            {handleEdit?<IoIosClose size={42} onClick={()=>{handleEdit("","",-1,"","","")}}/>:<IoIosClose size={42} onClick={toggle}/>}
-          </div>
-          
-          <div className='text-3xl font-bold text-center text-sec'>
-            Item
-          </div>
+    <div className='z-20 fixed inset-0 bg-black/60 flex items-center justify-center'>
+      <div className='bg-white rounded-md w-11/12 h-[90%] p-4 sm:w-10/12 md:w-8/12 lg:w-6/12 sm:h-4/5 md:h-3/4 lg:h-2/3 overflow-auto'>
+        <div className='flex justify-end'>
+          {handleEdit 
+            ? <IoIosClose size={42} onClick={() => handleEdit("", "", -1, "", "", "")} /> 
+            : <IoIosClose size={42} onClick={toggle} />}
+        </div>
 
-          <div className='grid grid-cols-2 gap-2'>
-            <div className='flex flex-col'>
-              <label htmlFor="name">Name:</label>
-              <input type="text" defaultValue={name} className='outline-none bg-gray-200 rounded-md h-10 p-2' onChange={(e)=>{setItemInfo({...itemInfo,name:e.target.value})}}/>
-            </div>
-            <div className='flex flex-col'>
-              <label htmlFor="location">Quantity:</label>
-              <input type="text" defaultValue={quantity}className='outline-none bg-gray-200 rounded-md h-10 p-2' onChange={(e)=>{setItemInfo({...itemInfo,quantity: parseInt(e.target.value)})}}/>
-            </div>
-            <div className='flex flex-col col-span-2'>
-              <label htmlFor="location">Description:</label>
-              <textarea name="" id="" defaultValue={description} className='outline-none bg-gray-200 rounded-md h-36 p-2' onChange={(e)=>{setItemInfo({...itemInfo,description:e.target.value})}}></textarea>
-            </div>
-            {imageUri?
-              <div className='relative h-32 col-span-2 rounded-md cursor-pointer' onClick={cameraToggle}>
-                <Image src={imageUri as string} alt={"krate image"} fill={true} className='object-contain'/>
-              </div>
-            :
-              <div className="bg-gray-300 rounded-md h-32 flex flex-col justify-center items-center col-span-2 cursor-pointer" onClick={cameraToggle}>
-                <FaCamera size={30} className='text-white'/>
-              </div>
-            }
-            
+        <div className='text-3xl font-bold text-center text-sec'>
+          Item
+        </div>
+
+        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+          <div className='flex flex-col'>
+            <label htmlFor="name">Name:</label>
+            <input 
+              type="text" 
+              defaultValue={name} 
+              className='outline-none bg-gray-200 rounded-md h-10 p-2' 
+              onChange={(e) => setItemInfo({ ...itemInfo, name: e.target.value })} 
+            />
           </div>
-          <div className='flex flex-col justify-end items-center pt-5'>
-            {id?
-            <button className='bg-sec rounded-md text-white w-40 h-10' onClick={saveItem}>save</button>
-            :
-            <button className='bg-sec rounded-md text-white w-40 h-10' onClick={addItem}>add</button>
-            }
-            
+          <div className='flex flex-col'>
+            <label htmlFor="quantity">Quantity:</label>
+            <input 
+              type="text" 
+              defaultValue={quantity} 
+              className='outline-none bg-gray-200 rounded-md h-10 p-2' 
+              onChange={(e) => setItemInfo({ ...itemInfo, quantity: parseInt(e.target.value) })} 
+            />
           </div>
-          
+          <div className='flex flex-col col-span-1 sm:col-span-2'>
+            <label htmlFor="description">Description:</label>
+            <textarea 
+              defaultValue={description} 
+              className='outline-none bg-gray-200 rounded-md p-2 h-24 sm:h-32' 
+              onChange={(e) => setItemInfo({ ...itemInfo, description: e.target.value })} 
+            />
+          </div>
+          {imageUri ? (
+            <div className='relative h-32 col-span-1 sm:col-span-2 rounded-md cursor-pointer' onClick={cameraToggle}>
+              <Image src={imageUri as string} alt="krate image" fill={true} className='object-contain' />
+            </div>
+          ) : (
+            <div 
+              className="bg-gray-300 rounded-md h-32 flex flex-col justify-center items-center col-span-1 sm:col-span-2 cursor-pointer" 
+              onClick={cameraToggle}
+            >
+              <FaCamera size={30} className='text-white' />
+            </div>
+          )}
+        </div>
+
+        <div className='flex justify-center items-center pt-5'>
+          {id 
+            ? <button className='bg-sec rounded-md text-white w-40 h-10' onClick={saveItem}>Save</button> 
+            : <button className='bg-sec rounded-md text-white w-40 h-10' onClick={addItem}>Add</button>}
         </div>
       </div>
     </div>
+
   </>
 }
 
