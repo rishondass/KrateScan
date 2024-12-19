@@ -29,6 +29,8 @@ const Camera = ({toggle, setImage}:Props) => {
         ref={webcamRef}
         audio={false}
         screenshotFormat="image/png"
+        width={window.innerWidth}
+        height={window.innerHeight}
         videoConstraints={{width: window.innerWidth,
         height: window.innerHeight,facingMode: "environment"}}
     />
