@@ -13,6 +13,7 @@ const Camera = ({toggle, setImage}:Props) => {
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    console.log(imageSrc);
     setImage(imageSrc as string);
     toggle();
     
@@ -24,11 +25,11 @@ const Camera = ({toggle, setImage}:Props) => {
     <IoChevronBackCircleSharp size={56} color={"#fff"} className='absolute top-4 left-4 z-50 shadow-sm' onClick={toggle}/>
     <FaCircle size={56} color={"#fff"} onClick={capture} className='absolute bottom-6 right-[calc(50%-28px)] z-50 shadow-sm'/>
     <Webcam
+        ref={webcamRef}
         audio={false}
-        height={window.screen.height}
         screenshotFormat="image/png"
-        width={window.screen.width}
-        videoConstraints={{frameRate: 60, facingMode: "environment"}}
+        forceScreenshotSourceSize={true}
+        videoConstraints={{width: window.innerWidth, height: window.innerHeight, facingMode: "environment"}}
     />
   
   
