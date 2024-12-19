@@ -1,19 +1,34 @@
 "use client";
-import { useState} from "react";
+import { useState, useEffect} from "react";
+import {useSearchParams, useRouter} from "next/navigation";
 import { signIn } from "next-auth/react"
 import SignUp from "@/components/SignUp";
+import {clsx} from "clsx";
 
 
 export default function Page() {
   const [signUp, setSignUp] = useState(false);
+  const router = useRouter();
+  const params = useSearchParams();
+  const error = params.get("error");
 
+  
+  useEffect(()=>{
+    
+  },[])
+  
 
-  const credentialsAction = (formData: FormData) => {
-    signIn("credentials",{
-      redirectTo: "/krates",
+  const credentialsAction = async(formData: FormData) => {
+    const res = await signIn("credentials",{
+      redirect: false,
       username: formData.get('username'),
       password: formData.get('password'),
-    })
+    });
+    if(res?.code === "credentials"){
+      router.push(`/login?error=invalid_credentials`)
+    }else{
+      router.push("/krates");
+    }
   }
   
 
@@ -21,6 +36,7 @@ export default function Page() {
   return <>
     {signUp&&<SignUp toggle={()=>{setSignUp(!signUp)}}/>}
     <div className="bg-prim text-white flex items-center flex-col justify-center h-screen gap-3">
+      <div className={clsx("bg-rose-500 py-2 px-3 rounded-md",error?"visible":"invisible")}>incorrect username/password</div>
       <div className="text-6xl font-extrabold">
         <span className="text-sec">Krate</span> <span>Scan</span>
       </div>

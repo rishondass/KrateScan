@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import NextAuth, { User } from "next-auth";
+import NextAuth, { AuthError, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { type DefaultSession } from 'next-auth';
 import { authUser, getUser} from "./lib/users";
@@ -59,6 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           username: userData?.username,
         }
       }
-    }
+    },
   }
 })
