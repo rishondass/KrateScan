@@ -27,9 +27,9 @@ const KratesPage = ({kratesData}:Props) => {
       setKrates(kratesData);
   },[kratesData])
 
-  useEffect(()=>{
-    console.log(toggleEditKrate);
-  },[toggleEditKrate])
+  // useEffect(()=>{
+  //   console.log(toggleEditKrate);
+  // },[toggleEditKrate])
 
   
 
