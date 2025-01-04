@@ -4,10 +4,12 @@ import {useSearchParams, useRouter} from "next/navigation";
 import { signIn } from "next-auth/react"
 import SignUp from "@/components/SignUp";
 import {clsx} from "clsx";
+import { GrFormView, GrFormViewHide } from "react-icons/gr";
 
 
 export default function Page() {
   const [signUp, setSignUp] = useState(false);
+  const [view, setView] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
   const error = params.get("error");
@@ -48,13 +50,18 @@ export default function Page() {
           className="px-3 py-2 max-w-96 rounded-md text-black outline-none"
           autoComplete="false"
         />
-        <input
-          name="password"
-          type="password"
-          placeholder="password"
-          className="px-3 py-2 max-w-96 rounded-md text-black outline-none"
-          autoComplete="false"
-        />
+        <div className="bg-red-400 items-center max-w-96 rounded-md text-black relative">
+          <input
+            name="password"
+            type={view?"text":"password"}
+            placeholder="password"
+            className="outline-none px-3 py-2 rounded-md"
+            autoComplete="false"
+          />
+          {view?<GrFormViewHide className="absolute right-1 bottom-2" size={24} onClick={()=>setView(false)}/>:<GrFormView onClick={()=>setView(true)} className="absolute right-1 bottom-2" size={24}/>}
+
+        </div>
+        
         <button
         type="submit"
         className="bg-sec p-3 rounded-md w-40 font-semibold"
