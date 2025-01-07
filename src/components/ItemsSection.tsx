@@ -17,7 +17,6 @@ const ItemsSection = ({items, krateID, add}:Props) => {
   
   const handleEdit = (id: string, name: string, quantity: number, description: string, image: string, krateID: string)=>{
     if(id){
-      console.log("HANDLING EDIT",name);
       setToggleEditModal({id, name, quantity, description, image, krateID});
     }else{
       setToggleEditModal(null);

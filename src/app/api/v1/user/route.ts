@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET(req:Request, props: { params: Promise<{ user: string }> }) {
   const params = await props.params;
   const user = await getUser(params.user);
-  console.log(user);
+
   return Response.json(user, {status: 200})
 }
 

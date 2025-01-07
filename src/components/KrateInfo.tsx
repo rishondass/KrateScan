@@ -1,10 +1,11 @@
 "use client";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import { IoChevronBack } from "react-icons/io5";
 import QRCode from "react-qr-code";
 import { useItems } from "@/lib/globalStates";
 import ItemsSection from "./ItemsSection";
+import PrintModal from "@/components/PrintModal"
 type Props = {
   id?: string | undefined;
   name?: string;
@@ -20,21 +21,20 @@ const Page = ({ id, name, description, location, items}: Props) => {
   const router = useRouter();
   const setItems = useItems(state=>state.setItems);
   const krateItems = useItems(state=>state.items);
-
+  const [togglePrint, setTogglePrint] = useState(false);
+  
   useEffect(()=>{
     if(items && krateItems.length <= 0){
       setItems(items);
     }
   },[items]);
 
-  useEffect(()=>{
-    console.log("ITEMS",krateItems);
-  },[krateItems]);
+  
 
   return (
     <>
       
-
+      {togglePrint&& <PrintModal name={name} id={id} togglePrint={()=>{setTogglePrint(!togglePrint)}}/>}
       <div className="p-2 h-screen flex flex-col">
         <div className="flex justify-between">
           <IoChevronBack
@@ -52,7 +52,7 @@ const Page = ({ id, name, description, location, items}: Props) => {
           </div>
           <div className="flex flex-col justify-center items-center gap-3">
             {id&&<QRCode value={id} size={100} />}
-            <button className="bg-prim rounded-md text-white px-3 py-2">
+            <button onClick={()=>setTogglePrint(true)} className="bg-prim rounded-md text-white px-3 py-2">
               print
             </button>
           </div>

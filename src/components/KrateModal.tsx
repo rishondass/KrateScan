@@ -48,13 +48,8 @@ const AddKrate = ({
     userID: user?.id || "-1",
   });
 
-  // useEffect(() => {
-  //   console.log(image);
-  //   console.log(krateInfo);
-  // }, [krateInfo]);
 
   const cameraToggle = () => {
-    console.log("toggle camera");
     setToggleCamera(!toggleCamera);
   };
 

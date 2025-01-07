@@ -33,7 +33,7 @@ const Camera = ({toggle, setImage}:Props) => {
     startWebcam();
 
     return () => {
-      console.log('unmount');
+      
       stopWebcam();
     };
   },[])
@@ -41,15 +41,12 @@ const Camera = ({toggle, setImage}:Props) => {
   const stopWebcam = () => {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
-      console.log(stream.getTracks());
       // Stop all media tracks immediately
       stream.getTracks().forEach((track) => {
         stream.removeTrack(track);
         track.stop();
-        console.log(`Track stopped: ${track.kind}`);
       });
-
-      console.log(stream.getTracks());
+      
 
       // Clear the video source
       videoRef.current.srcObject = null;

@@ -25,11 +25,9 @@ const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => 
 
   const handlers = useSwipeable({
     onSwipedLeft : () => {
-      //console.log("User Swiped!", eventData);
       setToggleTransition(true);
     },
     onSwipedRight: () => {
-      //console.log("User Swiped!", eventData);
       setToggleTransition(false);
     }
   });
@@ -50,7 +48,7 @@ const KrateCard = ({id, name, location, description,image,handleEdit}:Props) => 
 
 
   return (
-    <div {...handlers} key={id} className={clsx("min-h-32 bg-[#F1F1F1] rounded-md p-1 w-full flex gap-2 transition relative overflow-hidden")} onClick={()=>{router.push('/krates/'+id)}}>
+    <div {...handlers} key={id} className={clsx("min-h-32 bg-[#F1F1F1] rounded-md p-1 w-full flex gap-2 transition relative overflow-hidden cursor-pointer")} onClick={()=>{router.push('/krates/'+id)}}>
           <div className={clsx("absolute right-0 top-0 bg-prim h-full rounded-md w-1/2 transition ease-in-out flex",toggleTransition?"translate-x-0":"translate-x-full")}>
             <div className='bg-blue-600 h-full flex justify-center items-center grow rounded-l-md' onClick={(e)=>{e.stopPropagation();handleEdit(id,name,location,description,image);setToggleTransition(false)}}>
               <MdEdit size={40} className='text-white'/>

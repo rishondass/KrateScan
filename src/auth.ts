@@ -47,8 +47,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     
     async session({ session, token, user }){
       
-      // Add logic to customize the session
-      //console.log(token,user);
       const userData = await getUser(session.user.name || "");
 
       return {

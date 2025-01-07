@@ -27,9 +27,6 @@ const KratesPage = ({kratesData}:Props) => {
       setKrates(kratesData);
   },[kratesData])
 
-  // useEffect(()=>{
-  //   console.log(toggleEditKrate);
-  // },[toggleEditKrate])
 
   
 
@@ -72,7 +69,7 @@ const KratesPage = ({kratesData}:Props) => {
       
       <div className="flex items-center justify-between">
         <div className='text-sec text-5xl font-bold'>Krates</div>
-        <RiLogoutBoxLine size={36} className="text-rose-600" onClick={()=>{signOut();}}/>
+        <RiLogoutBoxLine size={36} className="text-rose-600 cursor-pointer" onClick={()=>{signOut();}}/>
       </div>
       
       <div className="flex items-center justify-center gap-3 pt-3">

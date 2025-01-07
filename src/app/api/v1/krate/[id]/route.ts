@@ -80,7 +80,7 @@ export async function DELETE(req:Request, props: { params: Promise<{ id: string 
   const session = await auth();
   const filePath = path.join(process.cwd(), 'src', 'public', 'uploads', session?.user.id || "", params.id);
 
-  console.log(filePath)
+  
   const res = await deleteKrate(params.id);
 
   if(res){
