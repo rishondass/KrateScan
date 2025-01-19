@@ -13,7 +13,6 @@ type Props = {
 const ItemsSection = ({items, krateID, add}:Props) => {
   const [toggleEditModal, setToggleEditModal] = useState<itemType | null>(null);
   const [toggleModal, setToggleModal] = useState(false);
-
   
   const handleEdit = (id: string, name: string, quantity: number, description: string, image: string, krateID: string)=>{
     if(id){

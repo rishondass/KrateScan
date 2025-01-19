@@ -1,6 +1,7 @@
 import { items} from "./db"
 
 export async function getItems(krateID:string){
+  console.log(krateID);
   return items.find({krateID: krateID}).toArray();
 }
 

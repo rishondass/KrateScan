@@ -12,7 +12,7 @@ type Props = {
   description?: string;
   location?: string;
   image?: string;
-  items?: itemType[];
+  items?: itemType[] | undefined;
 };
 
 
@@ -24,9 +24,7 @@ const Page = ({ id, name, description, location, items}: Props) => {
   const [togglePrint, setTogglePrint] = useState(false);
   
   useEffect(()=>{
-    if(items && krateItems.length <= 0){
-      setItems(items);
-    }
+    setItems(items);
   },[items]);
 
   

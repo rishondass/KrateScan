@@ -11,8 +11,8 @@ type useKrateType = {
 }
 
 type useItemType = {
-  items: itemType[],
-  setItems: (items: itemType[])=> void
+  items: itemType[] | undefined,
+  setItems: (items: itemType[] | undefined)=> void
 }
 
 export const useUser = create<useUserType>((set) => ({
@@ -31,5 +31,5 @@ export const useKrates = create<useKrateType>((set)=>({
 
 export const useItems = create<useItemType>((set)=>({
   items: [],
-  setItems: (items: itemType[])=> set({items:items}),
+  setItems: (items: itemType[] | undefined)=> set({items:items}),
 }));
