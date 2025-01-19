@@ -24,7 +24,7 @@ const Page = ({ id, name, description, location, items}: Props) => {
   const [togglePrint, setTogglePrint] = useState(false);
   
   useEffect(()=>{
-    setItems(items);
+    setItems(items || []);
   },[items]);
 
   
