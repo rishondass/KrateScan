@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import {createKrate} from "../../../../lib/krates";
+import {createKrate, get} from "../../../../lib/krates";
 import {writeFile, existsSync, mkdirSync} from "fs";
 import path from 'path';
 export async function POST(req: Request){
@@ -48,5 +48,9 @@ export async function POST(req: Request){
   }else{
     return NextResponse.json({},{status:505});
   }
+}
+
+export async function GET(req:Request){
+
 }
 

@@ -6,6 +6,8 @@ import { FaTrash } from 'react-icons/fa';
 import { useItems } from '@/lib/globalStates';
 import Image from "next/image";
 import krateImage from "@/assets/krate.svg"
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import ItemContextMenu from './ItemContextMenu';
 type Props = itemType & {
   handleEdit: (id: string, name: string, quantity: number, description: string, image:string, krateID: string)=>void;
 }
@@ -19,6 +21,9 @@ const ItemCard = ({id,krateID, name, quantity, description,image,handleEdit}:Pro
   const items = useItems(state=>state.items);
   const setItems = useItems(state=>state.setItems);
   const [toggleTransition, setToggleTransition] = useState(false);
+  const [toggleContext, setToggleContext] = useState(true);
+
+
   const handlers = useSwipeable({
     onSwipedLeft : () => {
       setToggleTransition(true);
@@ -49,6 +54,8 @@ const ItemCard = ({id,krateID, name, quantity, description,image,handleEdit}:Pro
 
   return (
     <div {...handlers} key={id} className={clsx("min-h-32 bg-[#F1F1F1] rounded-md p-1 w-full flex gap-2 transition relative overflow-hidden cursor-pointer")} >
+        {toggleContext &&<ItemContextMenu toggle={()=>{setToggleContext(!toggleContext)}}/>}
+        <BsThreeDotsVertical className='absolute right-1 top-2' onClick={()=>{setToggleContext(!toggleContext)}}/>
           <div className={clsx("absolute right-0 top-0 bg-prim h-full rounded-md w-1/2 transition ease-in-out flex",toggleTransition?"translate-x-0":"translate-x-full")}>
             <div className='bg-blue-600 h-full flex justify-center items-center grow rounded-l-md' onClick={(e)=>{e.stopPropagation();handleEdit(id,name,quantity,description,image,krateID);setToggleTransition(false)}}>
               <MdEdit size={40} className='text-white'/>
