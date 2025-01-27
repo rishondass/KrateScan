@@ -17,4 +17,4 @@ services:
       - AUTH_URL=${AUTH_URL}
       - APP_DATA=${APP_DATA}
     volumes:
-      - ${APP_DATA}:/app/public/uploads
+      - ${APP_DATA}:/app/src/public/uploads

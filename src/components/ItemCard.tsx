@@ -21,7 +21,7 @@ const ItemCard = ({id,krateID, name, quantity, description,image,handleEdit}:Pro
   const items = useItems(state=>state.items);
   const setItems = useItems(state=>state.setItems);
   const [toggleTransition, setToggleTransition] = useState(false);
-  const [toggleContext, setToggleContext] = useState(true);
+  const [toggleContext, setToggleContext] = useState(false);
 
 
   const handlers = useSwipeable({
