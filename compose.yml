@@ -15,3 +15,5 @@ services:
       - MONGO_URL=mongodb://db
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - AUTH_URL=${AUTH_URL}
+    volumes:
+      - ./appdata/kratescan/images:/app/public/uploads
