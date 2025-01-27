@@ -1,13 +1,13 @@
 services:
   db:
     image: mongo
-    ports: 
+    ports:
       - 27017:27017
     volumes:
       - /home/ubuntu/appdata/mongodb:/data/db
   server:
     build: .
-    ports: 
+    ports:
       - 12311:3000
     depends_on:
       - db
@@ -15,5 +15,6 @@ services:
       - MONGO_URL=mongodb://db
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - AUTH_URL=${AUTH_URL}
+      - APP_DATA=${APP_DATA}
     volumes:
-      - ./appdata/kratescan/images:/app/public/uploads
+      - ${APP_DATA}:/app/public/uploads
